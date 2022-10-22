@@ -1,13 +1,33 @@
 package tictactoe
 
+class Game(play: String) {
+    fun game(play: List<Char>): List<List<Char>> {
+
+        val list1 = play.subList(0, 3)
+        val list2 = play.subList(3, 6)
+        val list3 = play.subList(6, 9)
+
+        println("---------")
+        println("| ${list1.joinToString(" ")} |")
+        println("| ${list2.joinToString(" ")} |")
+        println("| ${list3.joinToString(" ")} |")
+        println("---------")
+
+        return listOf(list1, list2, list3)
+    }
+
+}
+
 fun main() {
 
-    val play = readln().uppercase().toList()
+    val play = Game(readln())
+
+        readln().uppercase().toList()
    result(game(play))
 
 }
 
-fun game(play: List<Char>): List<List<Char>> {
+/*fun game(play: List<Char>): List<List<Char>> {
 
     val list1 = play.subList(0, 3)
     val list2 = play.subList(3, 6)
@@ -65,22 +85,13 @@ fun result(game: List<List<Char>>) {
             }
         }
 
-        /* //diagonal 2 to 0
+        *//* //diagonal 2 to 0
          for (j in game[i].last() downTo game[i].first()) {
              println(game[i])
 
-         }*/
-
-
-
     }
     println(check)
-}
-
-
-
-
-
+}*/
 
     /*return when (check){
         "x" -> "X wins"
