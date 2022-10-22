@@ -1,103 +1,99 @@
 package tictactoe
 
-class Game(play: String) {
-    fun game(play: List<Char>): List<List<Char>> {
+class Tictactoe constructor (private val _play: List<Char>) {
 
-        val list1 = play.subList(0, 3)
-        val list2 = play.subList(3, 6)
-        val list3 = play.subList(6, 9)
-
-        println("---------")
-        println("| ${list1.joinToString(" ")} |")
-        println("| ${list2.joinToString(" ")} |")
-        println("| ${list3.joinToString(" ")} |")
-        println("---------")
-
+    private fun matrix(): List<List<Char>> {
+        val list1 = _play.subList(0, 3)
+        val list2 = _play.subList(3, 6)
+        val list3 = _play.subList(6, 9)
         return listOf(list1, list2, list3)
+
+
     }
+
+    fun gamePrint() {
+        println("---------")
+        for (i in matrix().indices) {
+        println("| ${matrix()[i].joinToString(" ")} |")
+        }
+        println("---------")
+    }
+
+    fun result() {
+        when {
+            horizontal() -> println("is horizontal")
+            vertical() -> println("is vertical")
+            diagonal() -> println("is diagonal")
+            else -> println("is false")
+        }
+
+    }
+
+    private fun horizontal(): Boolean {
+        for (row in matrix().indices) {
+            if (matrix()[row].all {it == 'X'} || matrix()[row].all {it == 'O'} ) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun vertical(): Boolean {
+        val list = mutableListOf<Char>()
+        for (row in matrix().indices) {
+            for (column in matrix().indices) {
+                 list.add(matrix()[column][row])
+            }
+        }
+        for (i in list.chunked(3).indices) {
+            if (list.chunked(3)[i].all {it == 'X'} || list.chunked(3)[i].all {it == 'O'}) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun diagonal(): Boolean {
+        val list1 = mutableListOf<Char>()
+        val list2 = mutableListOf<Char>()
+        val diagonaList = listOf(list1, list2)
+
+        for (row in matrix().indices) {
+            for (column in matrix().indices) {
+                if (row + column == matrix().size - 1) {
+                    list1.add(matrix()[row][column])
+                }
+            }
+        }
+
+        for (row in matrix().indices) {
+            for (column in matrix().indices) {
+                if (row == column) {
+                    list2.add(matrix()[row][column])
+                }
+            }
+        }
+
+        for (i in diagonaList.indices) {
+            if (diagonaList[i].all { it == 'X' } || diagonaList[i].all { it == 'O' }) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun draw(){}
+
+    private fun impossible() {}
 
 }
 
 fun main() {
 
-    val play = Game(readln())
+    val play  = Tictactoe(readln().uppercase().toList())
+    play.gamePrint()
+    play.result()
 
-        readln().uppercase().toList()
-   result(game(play))
 
 }
 
-/*fun game(play: List<Char>): List<List<Char>> {
-
-    val list1 = play.subList(0, 3)
-    val list2 = play.subList(3, 6)
-    val list3 = play.subList(6, 9)
-
-    println("---------")
-    println("| ${list1.joinToString(" ")} |")
-    println("| ${list2.joinToString(" ")} |")
-    println("| ${list3.joinToString(" ")} |")
-    println("---------")
-
-    return listOf(list1, list2, list3)
-}
-
-fun result(game: List<List<Char>>) {
-    var check = ""
-    var a = 2
-    var b = 2
-
-    for (i in game.indices) {
-
-        //game not finished
-        if (game[i].contains('_') && game[i].all { it != 'X' } || game[i].all { it != 'O' }) {
-            check = "_ nf"
-        }
-
-        //horizontal
-        if (game[i].all { it == 'X' }) {
-            check = "x h"
-
-        } else if (game[i].all { it == 'O' }) {
-            check = "o h"
-
-        }
-
-        //vertical
-        for (j in game[i].indices) {
-            if (game[j][i] == 'X') {
-                check = "x v"
-
-            } else if (game[j][i] == 'O') {
-                check = "o v"
-            }
-        }
-
-
-        //diagonal 0 to 2
-        for (j in game.indices) {
-            if (i + j == game.size - 1) {
-                if (game.indices.all {game[i][j] == 'X'}) {
-                    check = "x d"
-                } else if (game.all {game[i][j] == 'O'}) {
-                    check = "o d"
-                }
-            }
-        }
-
-        *//* //diagonal 2 to 0
-         for (j in game[i].last() downTo game[i].first()) {
-             println(game[i])
-
-    }
-    println(check)
-}*/
-
-    /*return when (check){
-        "x" -> "X wins"
-        "o" -> "O wins"
-        "_" -> "Game not finished"
-        "i" -> "Impossible"
-        else -> "Draw"
-
-    }*/
