@@ -1,4 +1,5 @@
 package tictactoe
+import kotlin.math.abs
 
 class Tictactoe constructor (private val _play: List<Char>) {
 
@@ -22,11 +23,13 @@ class Tictactoe constructor (private val _play: List<Char>) {
     }
 
     private fun result () {
-        when (true) {
-            notFinished() -> println("Game not finished")
-            !countPlays() -> println("Impossible")
-            ((horizontal() xor vertical() || horizontal() xor diagonal() || vertical() xor diagonal())
+        when {
+            !countPlays() -> impossible()
+            ((horizontal() || diagonal() || vertical())
                     && countPlays() && (_play.contains('_') || '_' !in _play)) -> check()
+            notFinished() -> println("Game not finished")
+
+            (!notFinished() && '_' !in _play) -> println("Draw")
         }
     }
     private fun check() {
@@ -34,7 +37,6 @@ class Tictactoe constructor (private val _play: List<Char>) {
             horizontal() -> checkH()
             vertical() -> checkV()
             diagonal() -> checkD()
-
         }
     }
 
@@ -109,12 +111,7 @@ class Tictactoe constructor (private val _play: List<Char>) {
                 listH.add(matrix()[row])
             }
         }
-        if (listH.size < 2) {
-            return true
-
-        }
-
-        return false
+        return (listH.size < 2)
     }
 
     private fun vertical(): Boolean {
@@ -130,10 +127,8 @@ class Tictactoe constructor (private val _play: List<Char>) {
                 listV.add(list.chunked(3)[i])
             }
         }
-        if (listV.size < 2) {
-            return true
-        }
-        return false
+        return (listV.size < 2)
+
     }
 
     private fun diagonal(): Boolean {
@@ -164,26 +159,22 @@ class Tictactoe constructor (private val _play: List<Char>) {
             }
         }
 
-        if (listD.size < 2) {
-            return true
-        }
-        return false
+        return (listD.size < 2)
+
     }
 
     private fun notFinished(): Boolean {
-        if (_play.contains('_') && !horizontal() && !vertical() && !diagonal()) {
-            return true
-        }
-        return false
+        return  (_play.contains('_') && !horizontal() && !vertical() && !diagonal())
     }
 
     private fun countPlays(): Boolean {
         val x = _play.count {it == 'X'}
         val o = _play.count {it == 'O'}
-        if (x - o < 2 || o - x < 2) {
-            return true
-        }
-        return false
+        return  (abs(x - o) < 2 || abs(o - x) < 2)
+    }
+
+    private fun impossible() {
+        println("Impossible")
     }
 
 }
