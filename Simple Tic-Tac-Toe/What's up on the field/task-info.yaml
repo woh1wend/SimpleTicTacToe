@@ -326,19 +326,15 @@ files:
         }
     }
   learner_created: false
+- name: src/tictactoe/game.kt
+  visible: true
+  learner_created: true
+- name: src/tictactoe/Result.kt
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/10477#comment
-status: Failed
+status: Solved
 feedback:
-  message: "Exception in test #2\n\njava.lang.IndexOutOfBoundsException: Index 0 out\
-    \ of bounds for length 0\n\tat java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)\n\
-    \tat java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)\n\
-    \tat java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)\n\
-    \tat java.base/java.util.Objects.checkIndex(Objects.java:359)\n\tat java.base/java.util.ArrayList.get(ArrayList.java:427)\n\
-    \tat tictactoe.Tictactoe.checkH(Main.kt:51)\n\tat tictactoe.Tictactoe.check(Main.kt:37)\n\
-    \tat tictactoe.Tictactoe.result(Main.kt:29)\n\tat tictactoe.Tictactoe.gamePrint(Main.kt:22)\n\
-    \tat tictactoe.MainKt.main(Main.kt:185)\n\tat tictactoe.MainKt.main(Main.kt)\n\
-    \nPlease find below the output of your program during this failed test.\nNote\
-    \ that the &#39;&gt;&#39; character indicates the beginning of the input line.\n\
-    \n---\n\n&gt; XOXOXOXXO\n---------\n| X O X |\n| O X O |\n| X X O |\n---------"
-  time: Tue, 25 Oct 2022 11:49:10 UTC
+  message: Congratulations!
+  time: Wed, 26 Oct 2022 08:03:21 UTC
 record: -1
