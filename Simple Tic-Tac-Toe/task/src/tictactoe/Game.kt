@@ -10,7 +10,7 @@ open class Game (_play: List<Char>) {
         return mutableListOf(list1, list2, list3)
     }
 
-    private fun print() {
+    fun print() {
         println("---------")
         for (row in matrix().indices) {
             println("| ${matrix()[row].joinToString(" ")} |")
@@ -35,7 +35,7 @@ open class Game (_play: List<Char>) {
             if (r.digitToInt() < 1 || r.digitToInt() > 3 || c.digitToInt() < 1 || c.digitToInt() > 3) {
                 println("Coordinates should be from 1 to 3!")
                 return false
-            } else if (matrix()[row][column] != '_') {
+            } else if (matrix()[row][column] != ' ') {
                 println("This cell is occupied! Choose another one!")
                 return false
             }
@@ -50,7 +50,7 @@ open class Game (_play: List<Char>) {
         val column = c.digitToInt() - 1
 
         when {
-            matrix()[row][column] == '_' -> when (row) {
+            matrix()[row][column] == ' ' -> when (row) {
                 0 -> when (column) {
                     0 -> newPlay[0] = 'X'
                     1 -> newPlay[1] = 'X'
@@ -67,6 +67,38 @@ open class Game (_play: List<Char>) {
                     0 -> newPlay[6] = 'X'
                     1 -> newPlay[7] = 'X'
                     2 -> newPlay[8] = 'X'
+                }
+            }
+        }
+
+        return newPlay
+
+    }
+
+    fun setO(move: String): List<Char> {
+        val r = move[0]
+        val c = move[2]
+        val row = r.digitToInt() - 1
+        val column = c.digitToInt() - 1
+
+        when {
+            matrix()[row][column] == ' ' -> when (row) {
+                0 -> when (column) {
+                    0 -> newPlay[0] = 'O'
+                    1 -> newPlay[1] = 'O'
+                    2 -> newPlay[2] = 'O'
+                }
+
+                1 -> when (column) {
+                    0 -> newPlay[3] = 'O'
+                    1 -> newPlay[4] = 'O'
+                    2 -> newPlay[5] = 'O'
+                }
+
+                2 -> when (column) {
+                    0 -> newPlay[6] = 'O'
+                    1 -> newPlay[7] = 'O'
+                    2 -> newPlay[8] = 'O'
                 }
             }
         }
@@ -131,29 +163,32 @@ open class Game (_play: List<Char>) {
         return listD
     }
 
-    private fun countPlays(): Boolean {
+    /*private fun countPlays(): Boolean {
         val x = newPlay.count { it == 'X' }
         val o = newPlay.count { it == 'O' }
         return (abs(x - o) < 2 || abs(o - x) < 2)
-    }
+    }*/
 
-    fun result() {
-
-        print()
+    fun result(): Boolean {
 
         if (horizontal().size == 1 && vertical().size == 0 && diagonal().size == 0) {
             println("${horizontal()[0][0]} wins")
+            return true
         } else if (vertical().size == 1 && horizontal().size == 0 && diagonal().size == 0) {
             println("${vertical()[0][0]} wins")
+            return true
         } else if (diagonal().size == 1 && horizontal().size == 0 && vertical().size == 0) {
             println("${diagonal()[0][0]} wins")
-        } else if (diagonal().size == 0 && vertical().size == 0 && horizontal().size == 0 && '_' !in newPlay) {
+            return true
+        } else if (diagonal().size == 0 && vertical().size == 0 && horizontal().size == 0 && ' ' !in newPlay) {
             println("Draw")
-        } else if (countPlays() && diagonal().size == 0 && vertical().size == 0 && horizontal().size == 0 && '_' in newPlay) {
+            return true
+        } /*else if (countPlays() && diagonal().size == 0 && vertical().size == 0 && horizontal().size == 0 && '_' in newPlay) {
             println("Game not finished")
         } else {
             println("Impossible")
-        }
+        }*/
+        return false
 
     }
 }

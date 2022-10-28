@@ -2,16 +2,34 @@ package tictactoe
 
 fun main() {
 
-    val game = Game(readln().uppercase().toList())
-    game.result()
+    val game = Game("         ".uppercase().toList())
+    game.print()
 
-    var move = readln()
+    while (!game.result()) {
 
-    while (!game.userInput(move)) {
+        var move = readln()
+
+        while (!game.userInput(move)) {
+            move = readln()
+        }
+        game.setX(move)
+        game.print()
+        if(game.result()) break
+
         move = readln()
+
+        while (!game.userInput(move)) {
+            move = readln()
+        }
+        game.setO(move)
+        game.print()
+        if(game.result()) break
     }
-    game.setX(move)
     game.result()
+
+
+
+
 
 
 
