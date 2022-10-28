@@ -326,7 +326,7 @@ files:
         }
     }
   learner_created: false
-- name: src/tictactoe/game.kt
+- name: src/tictactoe/Game.kt
   visible: true
   learner_created: true
 - name: src/tictactoe/Result.kt
@@ -337,4 +337,4 @@ status: Solved
 feedback:
   message: Congratulations!
   time: Wed, 26 Oct 2022 08:03:21 UTC
-record: -1
+record: 3
